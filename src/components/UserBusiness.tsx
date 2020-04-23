@@ -12,7 +12,7 @@ const UserBusiness = (): JSX.Element => {
   const SIREN = '833079619';
 
   // State for a fetched business data
-  const [businessData, setBusinessData] = useState<IBusinessData>({});
+  const [businessData, setBusinessData] = useState<IBusinessData | null>(null);
 
   //State to handle an error
   const [error, setError] = useState<string>('');
@@ -45,10 +45,17 @@ const UserBusiness = (): JSX.Element => {
   if (error) {
     return <div className='ui header red centered'>{error}</div>;
   }
+
   // Loading while businessData is an empty object
-  if (Object.keys(businessData).length === 0 && fetching) {
+  if (!businessData && fetching) {
     return <div className='ui active centered inline loader'></div>;
   }
+
+
+  // Loading while businessData is an empty object
+  // if (Object.keys(businessData).length === 0 && fetching) {
+  //   return <div className='ui active centered inline loader'></div>;
+  // }
 
   return (
     <div className='ui divided selection list'>
@@ -57,21 +64,21 @@ const UserBusiness = (): JSX.Element => {
           <i className='id badge outline icon'></i>
           SIRET:
         </div>
-        <span className='siret'> {businessData.siret}</span>
+        <span className='siret'> {businessData?.siret}</span>
       </a>
       <a className='item'>
         <div className='ui label teal large horizontal'>
           <i className='icon calendar plus outline'></i>
           Start date:
         </div>
-        <span className='startDate'>{businessData.startDate} </span>
+        <span className='startDate'>{businessData?.startDate} </span>
       </a>
       <a className='item'>
         <div className='ui label pink large horizontal'>
           <i className='icon map pin'></i>
           Addresse:
         </div>
-        <span className='adresse'>{businessData.adresse}</span>
+        <span className='adresse'>{businessData?.adresse}</span>
       </a>
     </div>
   );

@@ -125,7 +125,10 @@ const Modal: React.FunctionComponent<ModalProps> = ({
   }
 
   // Generatign a modal box
-  return ReactDOM.createPortal(
+  const modalNode = document.querySelector('#modal');
+
+  // Generatign a modal box
+  return !modalNode ? null : ReactDOM.createPortal(
     <div
       onClick={onDismiss}
       className='ui dimmer modals visible active'
@@ -146,8 +149,8 @@ const Modal: React.FunctionComponent<ModalProps> = ({
           </button>
         </div>
       </div>
-    </div>,
-    document.querySelector('#modal')
+      </div>,
+    modalNode
   );
 };
 
